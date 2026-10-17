@@ -1,0 +1,16 @@
+{
+  "name": "dev.derpynewbie.i18n",
+  "version": "0.1.0",
+  "displayName": "Newbie I18n",
+  "description": "Internationalization Library",
+  "unity": "2022.3",
+  "author": {
+    "name": "DerpyNewbie",
+    "email": "contact@derpynewbie.dev",
+    "url": "https://github.com/derpynewbie"
+  },
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.11.0"
+  },
+  "hideInEditor": false
+}
