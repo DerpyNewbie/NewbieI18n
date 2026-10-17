@@ -33,7 +33,7 @@ namespace DerpyNewbie.I18N.Editor
         private string _status = "";
         private MessageType _statusType = MessageType.None;
 
-        [MenuItem("Tools/I18N/Sheet Exporter")]
+        [MenuItem("Tools/DerpyNewbie/I18N/Sheet Exporter")]
         private static void Open()
         {
             GetWindow<I18NSheetExporter>("I18N Exporter");

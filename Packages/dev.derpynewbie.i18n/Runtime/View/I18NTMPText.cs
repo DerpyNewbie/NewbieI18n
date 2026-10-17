@@ -1,12 +1,13 @@
-﻿using DerpyNewbie.Common;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 namespace DerpyNewbie.I18N.View
 {
     public class I18NTMPText : I18NView
     {
-        [SerializeField] [NewbieInject(SearchScope.Children)]
+        [SerializeField]
         private TMP_Text text;
+        [SerializeField]
+        protected string key;
 
         public override void OnI18NRefresh()
         {
@@ -24,5 +25,16 @@ namespace DerpyNewbie.I18N.View
 
             text.text = provider.GetString(key);
         }
+
+#if UNITY_EDITOR && !COMPILER_UDONSHARP
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            if (text == null)
+            {
+                text = GetComponentInChildren<TMP_Text>();
+            }
+        }
+#endif
     }
 }

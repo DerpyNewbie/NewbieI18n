@@ -8,10 +8,6 @@ namespace DerpyNewbie.I18N
     {
         [SerializeField] [NewbieInject]
         protected I18NProvider provider;
-        [SerializeField]
-        protected string key;
-        [SerializeField]
-        protected string stringPreview;
 
         private void OnEnable()
         {
@@ -28,17 +24,11 @@ namespace DerpyNewbie.I18N
 
         }
 
-#if UNITY_EDITOR && !UDONSHARP_COMPILER
+#if UNITY_EDITOR && !COMPILER_UDONSHARP
         protected virtual void OnValidate()
         {
-            if (provider == null)
-            {
-                stringPreview = "<PROVIDER_NOT_FOUND>";
-                return;
-            }
-
-            var str = provider.GetString(key);
-            stringPreview = str ?? "<INVALID_KEY>";
+            if (provider == null) provider = FindObjectOfType<I18NProvider>();
+            if (provider == null) return;
 
             OnI18NRefresh();
         }

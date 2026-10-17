@@ -1,0 +1,5 @@
+key,ja,en
+@name,日本語(Japanese),English
+example.1,これはサンプルテキストです。,This is a sample text.
+example.2,各Textに1つのキーを指定できます。,A key can be assigned to Text one by one. 
+example.3,VRChatクライアントの言語設定に応じて、最初の表示言語を変更します。,Initial Language settings respects VRChat Client settings.

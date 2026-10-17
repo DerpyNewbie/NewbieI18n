@@ -12,6 +12,11 @@ namespace DerpyNewbie.I18N
         public abstract string[] GetAvailableLanguages();
         public abstract bool SetCurrentLanguage(string language);
 
+        public virtual string GetLanguageName(string language)
+        {
+            return language;
+        }
+
         public void RefreshViews()
         {
             foreach (var token in _i18NViews.ToArray())

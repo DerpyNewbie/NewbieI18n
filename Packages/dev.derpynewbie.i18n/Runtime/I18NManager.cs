@@ -6,12 +6,13 @@ namespace DerpyNewbie.I18N
     public class I18NManager : I18NProvider
     {
         [SerializeField]
-        private string localeJson;
-        [SerializeField]
         private string currentLanguage = "ja";
+        [SerializeField] [TextArea]
+        private string localeJson;
 
         private DataDictionary _textDict;
         private string[] _languages = new string[0];
+        private string[] _languageNames = new string[0];
 
         private void Start()
         {
@@ -38,6 +39,7 @@ namespace DerpyNewbie.I18N
             var resultDict = result.DataDictionary;
             _languages = ToStringArray(resultDict["languages"].DataList);
             _textDict = resultDict["texts"].DataDictionary;
+            _languageNames = resultDict.TryGetValue("languageNames", TokenType.DataList, out var names) ? ToStringArray(names.DataList) : _languages;
         }
 
         private void EnsureLoaded()
@@ -68,7 +70,18 @@ namespace DerpyNewbie.I18N
 
         public override string[] GetAvailableLanguages()
         {
+            EnsureLoaded();
             return _languages;
+        }
+
+        public override string GetLanguageName(string language)
+        {
+            EnsureLoaded();
+            for (var i = 0; i < _languages.Length && i < _languageNames.Length; i++)
+                if (_languages[i] == language)
+                    return _languageNames[i];
+
+            return language;
         }
 
         public override bool SetCurrentLanguage(string language)
@@ -76,6 +89,15 @@ namespace DerpyNewbie.I18N
             OnLanguageChanged(language);
             return true;
         }
+
+#if UNITY_EDITOR && !COMPILER_UDONSHARP
+        private void OnValidate()
+        {
+            // localeJson が書き換えられたら次回アクセス時に読み直す
+            _textDict = null;
+            Reload();
+        }
+#endif
 
         private static string[] ToStringArray(DataList list)
         {
