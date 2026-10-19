@@ -10,7 +10,7 @@
     "url": "https://github.com/derpynewbie"
   },
   "vpmDependencies": {
-    "com.vrchat.worlds": ">=3.11.0"
+    "com.vrchat.worlds": ">=3.10.0"
   },
   "hideInEditor": false
 }
