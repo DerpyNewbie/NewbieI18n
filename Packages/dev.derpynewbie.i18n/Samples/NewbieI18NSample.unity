@@ -328,23 +328,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1898706213095682584, guid: 84025f9f1502df441a2d73a6a854e761, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1898706213095682584, guid: 84025f9f1502df441a2d73a6a854e761, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0000015199182
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1898706213095682584, guid: 84025f9f1502df441a2d73a6a854e761, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1898706213095682584, guid: 84025f9f1502df441a2d73a6a854e761, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1898706213095682584, guid: 84025f9f1502df441a2d73a6a854e761, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1898706213095682584, guid: 84025f9f1502df441a2d73a6a854e761, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -360,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1898706213095682584, guid: 84025f9f1502df441a2d73a6a854e761, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1898706213095682584, guid: 84025f9f1502df441a2d73a6a854e761, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -671,7 +671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
       propertyPath: m_Options.m_Options.Array.size
@@ -684,6 +684,34 @@ PrefabInstance:
     - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
       propertyPath: m_Options.m_Options.Array.data[1].m_Text
       value: English
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 846244907}
+    - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendCustomEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112092041840326419, guid: acc8c0d58afe06b47912036c6fd2217b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: OnValueChanged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1674,7 +1702,33 @@ MonoBehaviour:
   RenderReflectionBounces: 0
   RenderReflectionIntensity: 0
   RenderSkybox: {fileID: 0}
-  NetworkIDs: []
+  NetworkIDs:
+  - gameObject: {fileID: 78850969}
+    ID: 10
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 974048176}
+    ID: 11
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 2144317516}
+    ID: 12
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 510997299}
+    ID: 13
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 846244905}
+    ID: 14
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+  - gameObject: {fileID: 3480278762663670689}
+    ID: 15
+    SerializedTypeNames:
+    - VRC.Udon.UdonBehaviour
+    - VRC.Udon.UdonBehaviour
+    - VRC.Udon.UdonBehaviour
   portraitCameraPositionOffset: {x: 0, y: 0, z: 0}
   portraitCameraRotationOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   PlayerPersistence: []

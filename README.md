@@ -6,7 +6,7 @@ Simple U# Internationalization (i18n) library for VRChat.
 
 - Translate `Text` / `TextMeshPro` texts by key, using `I18NText` and `I18NTMPText`.
 - Initial language respects VRChat Client language settings.
-- Switch languages at runtime with `I18NLanguageSelectionDropdown`.
+- Switch languages at runtime with `I18NLanguageSelectionDropdown` (`Dropdown`) or `I18NLanguageSelectionTMPDropdown` (`TMP_Dropdown`).
 - Write translations in Google Sheets (or CSV), then export them using `Tools/DerpyNewbie/I18N/Sheet Exporter`.
 - Falls back to the first language when a translation is missing.
 - Custom translation sources by extending `I18NProvider`.

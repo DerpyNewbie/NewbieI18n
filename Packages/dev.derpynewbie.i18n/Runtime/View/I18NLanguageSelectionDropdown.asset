@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: I18NLanguageSelectionDropdown
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: baa9829a96f625b42a734c45626a8ffc, type: 2}
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 99a28003236f727469a8fd104e2ad64b, type: 2}
   udonAssembly: 
   assemblyError: 
-  sourceCsScript: {fileID: 11500000, guid: 5ec066d471af8f447860b88b8423eb2f, type: 3}
+  sourceCsScript: {fileID: 11500000, guid: 69c593e5855b4977811d71564eb4e0ec, type: 3}
   scriptVersion: 2
   compiledVersion: 2
   behaviourSyncMode: 1
@@ -127,7 +127,7 @@ MonoBehaviour:
       Data: 8|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: TMPro.TMP_Dropdown, Unity.TextMeshPro
+      Data: UnityEngine.UI.Dropdown, UnityEngine.UI
     - Name: 
       Entry: 8
       Data: 
