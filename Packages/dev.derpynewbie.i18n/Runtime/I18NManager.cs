@@ -16,8 +16,8 @@ namespace DerpyNewbie.I18N
 
         private void Start()
         {
-            currentLanguage = VRCPlayerApi.GetCurrentLanguage();
             EnsureLoaded();
+            OnLanguageChanged(VRCPlayerApi.GetCurrentLanguage());
         }
 
         public override void OnLanguageChanged(string language)
@@ -28,7 +28,7 @@ namespace DerpyNewbie.I18N
 
         public void Reload()
         {
-            Debug.Log("[I18NManager]Loading locale json");
+            Debug.Log("[I18NManager] Loading locale json");
 
             if (!VRCJson.TryDeserializeFromJson(localeJson, out var result))
             {
