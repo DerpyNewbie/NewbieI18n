@@ -9,8 +9,17 @@ namespace DerpyNewbie.I18N
         private string currentLanguage = "ja";
         [SerializeField] [TextArea]
         private string localeJson;
+        [Tooltip("Sprites looked up by name. The translated value of a key is used as the sprite name.")]
+        [SerializeField]
+        private Sprite[] sprites = new Sprite[0];
+        [Tooltip("Textures looked up by name. The translated value of a key is used as the texture name.")]
+        [SerializeField]
+        private Texture[] textures = new Texture[0];
 
         private DataDictionary _textDict;
+        // Asset name -> index into sprites / textures
+        private DataDictionary _spriteIndex;
+        private DataDictionary _textureIndex;
         private string[] _languages = new string[0];
         private string[] _languageNames = new string[0];
 
@@ -29,6 +38,9 @@ namespace DerpyNewbie.I18N
         public void Reload()
         {
             Debug.Log("[I18NManager] Loading locale json");
+
+            _spriteIndex = BuildSpriteIndex(sprites);
+            _textureIndex = BuildTextureIndex(textures);
 
             if (!VRCJson.TryDeserializeFromJson(localeJson, out var result))
             {
@@ -61,6 +73,22 @@ namespace DerpyNewbie.I18N
             // Fall back to the first language when there is no translation
             if (entry.DataDictionary.TryGetValue(_languages[0], TokenType.String, out value)) return value.String;
             return key;
+        }
+
+        public override Sprite GetSprite(string key, string language)
+        {
+            EnsureLoaded();
+
+            if (!_spriteIndex.TryGetValue(GetString(key, language), TokenType.Int, out var index)) return null;
+            return sprites[index.Int];
+        }
+
+        public override Texture GetTexture(string key, string language)
+        {
+            EnsureLoaded();
+
+            if (!_textureIndex.TryGetValue(GetString(key, language), TokenType.Int, out var index)) return null;
+            return textures[index.Int];
         }
 
         public override string GetCurrentLanguage()
@@ -96,8 +124,55 @@ namespace DerpyNewbie.I18N
             // Reload on next access when localeJson has been changed
             _textDict = null;
             Reload();
+            WarnDuplicateNames(sprites, "sprite");
+            WarnDuplicateNames(textures, "texture");
+        }
+
+        private void WarnDuplicateNames(Object[] assets, string label)
+        {
+            if (assets == null) return;
+
+            var seen = new System.Collections.Generic.HashSet<string>();
+            foreach (var asset in assets)
+            {
+                if (asset != null && !seen.Add(asset.name))
+                    Debug.LogWarning($"[I18NManager] Duplicate {label} name \"{asset.name}\". Only the first one is used.", this);
+            }
         }
 #endif
+
+        // Udon arrays are not covariant, so sprites and textures are indexed by separate methods
+        private static DataDictionary BuildSpriteIndex(Sprite[] assets)
+        {
+            var index = new DataDictionary();
+            if (assets == null) return index;
+
+            for (var i = 0; i < assets.Length; i++)
+            {
+                var asset = assets[i];
+                // The first asset wins when names are duplicated
+                if (asset == null || index.ContainsKey(asset.name)) continue;
+                index.Add(asset.name, i);
+            }
+
+            return index;
+        }
+
+        private static DataDictionary BuildTextureIndex(Texture[] assets)
+        {
+            var index = new DataDictionary();
+            if (assets == null) return index;
+
+            for (var i = 0; i < assets.Length; i++)
+            {
+                var asset = assets[i];
+                // The first asset wins when names are duplicated
+                if (asset == null || index.ContainsKey(asset.name)) continue;
+                index.Add(asset.name, i);
+            }
+
+            return index;
+        }
 
         private static string[] ToStringArray(DataList list)
         {

@@ -1,4 +1,5 @@
 ﻿using UdonSharp;
+using UnityEngine;
 using VRC.SDK3.Data;
 namespace DerpyNewbie.I18N
 {
@@ -15,6 +16,18 @@ namespace DerpyNewbie.I18N
         public virtual string GetLanguageName(string language)
         {
             return language;
+        }
+
+        /// <summary>Returns the localized Sprite for the key, or null when there is none.</summary>
+        public virtual Sprite GetSprite(string key, string language)
+        {
+            return null;
+        }
+
+        /// <summary>Returns the localized Texture for the key, or null when there is none.</summary>
+        public virtual Texture GetTexture(string key, string language)
+        {
+            return null;
         }
 
         public void RefreshViews()
@@ -47,6 +60,16 @@ namespace DerpyNewbie.I18N
         public static string GetString(this I18NProvider provider, string key)
         {
             return provider.GetString(key, provider.GetCurrentLanguage());
+        }
+
+        public static Sprite GetSprite(this I18NProvider provider, string key)
+        {
+            return provider.GetSprite(key, provider.GetCurrentLanguage());
+        }
+
+        public static Texture GetTexture(this I18NProvider provider, string key)
+        {
+            return provider.GetTexture(key, provider.GetCurrentLanguage());
         }
     }
 }
