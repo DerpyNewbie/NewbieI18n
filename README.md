@@ -5,6 +5,7 @@ Simple U# Internationalization (i18n) library for VRChat.
 ## Features
 
 - Translate `Text` / `TextMeshPro` texts by key, using `I18NText` and `I18NTMPText`.
+- Swap `Image` sprites / `RawImage` textures by key, using `I18NImage` and `I18NRawImage`.
 - Initial language respects VRChat Client language settings.
 - Switch languages at runtime with `I18NLanguageSelectionDropdown` (`Dropdown`) or `I18NLanguageSelectionTMPDropdown` (`TMP_Dropdown`).
 - Write translations in Google Sheets (or CSV), then export them using `Tools/DerpyNewbie/I18N/Sheet Exporter`.
@@ -48,6 +49,17 @@ Rows with key starting with `#`, and columns with header starting with `#` are i
 
 See `Samples/SampleTranslations.csv` for an example.
 
+### Q. How do I swap images per language?
+
+Register every localized sprite / texture once in `I18NManager`'s `Sprites` / `Textures` array, then add `I18NImage`
+(for `Image`) or `I18NRawImage` (for `RawImage`) and set a key. The translated value of the key is used as the asset name
+to look up, so asset names must be unique within each array.
+
+| key         | ja             | en             |
+|-------------|----------------|----------------|
+| menu.banner | banner_ja      | banner_en      |
+
 ### Q. How do I write custom views?
 
-Extend `I18NView`, Override `OnI18NRefresh()`, Get the text using `provider.GetString(key)`, Done!
+Extend `I18NView`, Override `OnI18NRefresh()`, Get the text using `provider.GetString(key)`
+(or `provider.GetSprite(key)` / `provider.GetTexture(key)`), Done!

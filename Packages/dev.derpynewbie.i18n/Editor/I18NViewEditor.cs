@@ -1,5 +1,7 @@
+using DerpyNewbie.I18N.View;
 using UdonSharpEditor;
 using UnityEditor;
+using UnityEngine;
 
 namespace DerpyNewbie.I18N.Editor
 {
@@ -26,7 +28,22 @@ namespace DerpyNewbie.I18N.Editor
 
             EditorGUILayout.Space();
             using (new EditorGUI.DisabledScope(true))
+            {
                 EditorGUILayout.TextField("Preview", GetPreview());
+
+                var provider = _provider.objectReferenceValue as I18NProvider;
+                if (provider == null) return;
+
+                switch (target)
+                {
+                    case I18NImage _:
+                        EditorGUILayout.ObjectField("Preview Sprite", provider.GetSprite(_key.stringValue), typeof(Sprite), false);
+                        break;
+                    case I18NRawImage _:
+                        EditorGUILayout.ObjectField("Preview Texture", provider.GetTexture(_key.stringValue), typeof(Texture), false);
+                        break;
+                }
+            }
         }
 
         private string GetPreview()
