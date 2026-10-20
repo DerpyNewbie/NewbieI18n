@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using DerpyNewbie.Common;
+﻿using DerpyNewbie.Common;
+using System.Collections.Generic;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
+using VRC.Udon.Serialization.OdinSerializer;
 #if UNITY_EDITOR && !COMPILER_UDONSHARP
 using UnityEditor;
 #endif
@@ -24,9 +25,8 @@ namespace DerpyNewbie.I18N.View
         [SerializeField] [HideInInspector]
         private string[] languages;
         // List<Dropdown.OptionData> per language. Udon cannot handle arrays of List, so they are stored as object[].
-        [SerializeField] [HideInInspector]
-[VRC.Udon.Serialization.OdinSerializer.OdinSerialize] /* UdonSharp auto-upgrade: serialization */ 
-        private object[] languageOptions;
+        [OdinSerialize]
+        private object[] _languageOptions;
 
         public override void OnI18NRefresh()
         {
@@ -42,10 +42,10 @@ namespace DerpyNewbie.I18N.View
                 return;
             }
 
-            if (languages == null || languageOptions == null) return;
+            if (languages == null || _languageOptions == null) return;
 
             var index = languages.FindString(provider.GetCurrentLanguage());
-            if (index < 0 || index >= languageOptions.Length)
+            if (index < 0 || index >= _languageOptions.Length)
             {
                 Debug.LogWarning($"[I18NDropdown-{name}] No options for language {provider.GetCurrentLanguage()}",
                     this);
@@ -53,7 +53,7 @@ namespace DerpyNewbie.I18N.View
             }
 
             var value = dropdown.value;
-            dropdown.options = (List<Dropdown.OptionData>)languageOptions[index];
+            dropdown.options = (List<Dropdown.OptionData>)_languageOptions[index];
             dropdown.SetValueWithoutNotify(value);
             dropdown.RefreshShownValue();
         }
@@ -73,21 +73,22 @@ namespace DerpyNewbie.I18N.View
         {
             var available = provider.GetAvailableLanguages();
             var currentOptions = dropdown.options;
-            var keyCount = keys != null ? keys.Length : 0;
+            var keyCount = keys?.Length ?? 0;
 
             languages = (string[])available.Clone();
-            languageOptions = new object[available.Length];
+            _languageOptions = new object[available.Length];
             for (var i = 0; i < available.Length; i++)
             {
                 var options = new List<Dropdown.OptionData>(keyCount);
                 for (var j = 0; j < keyCount; j++)
                 {
-                    var text = provider.GetString(keys[j], available[i]) ?? keys[j];
+                    var key = keys?[j];
+                    var text = provider.GetString(key, available[i]) ?? key;
                     var image = j < currentOptions.Count ? currentOptions[j].image : null;
                     options.Add(new Dropdown.OptionData(text, image));
                 }
 
-                languageOptions[i] = options;
+                _languageOptions[i] = options;
             }
         }
 
@@ -96,9 +97,9 @@ namespace DerpyNewbie.I18N.View
         {
             var index = languages.FindString(provider.GetCurrentLanguage());
             if (index < 0) index = 0;
-            if (index >= languageOptions.Length) return;
+            if (index >= _languageOptions.Length) return;
 
-            var source = (List<Dropdown.OptionData>)languageOptions[index];
+            var source = (List<Dropdown.OptionData>)_languageOptions[index];
             if (IsSameOptions(source)) return;
 
             var value = dropdown.value;
