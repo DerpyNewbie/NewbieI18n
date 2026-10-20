@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace DerpyNewbie.I18N.View
 {
     /// <summary>
-    /// Dropdown を使う言語選択。
+    /// Language selection using a Dropdown.
     /// </summary>
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class I18NLanguageSelectionDropdown : I18NLanguageSelectionDropdownBase

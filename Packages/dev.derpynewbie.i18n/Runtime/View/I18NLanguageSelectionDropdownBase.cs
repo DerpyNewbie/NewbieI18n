@@ -12,9 +12,9 @@ using VRC.Udon;
 namespace DerpyNewbie.I18N.View
 {
     /// <summary>
-    /// Dropdown / TMP_Dropdown 共通の言語選択処理。
-    /// Dropdown の選択肢と OnValueChanged への SendCustomEvent("OnValueChanged") の登録は
-    /// エディタ上で自動で行われる。
+    /// Shared language selection logic for Dropdown / TMP_Dropdown.
+    /// The dropdown options and the SendCustomEvent("OnValueChanged") listener on OnValueChanged
+    /// are set up automatically in the editor.
     /// </summary>
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public abstract class I18NLanguageSelectionDropdownBase : I18NView
