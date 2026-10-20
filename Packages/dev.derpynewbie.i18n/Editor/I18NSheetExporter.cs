@@ -12,14 +12,14 @@ using UnityEngine.Networking;
 namespace DerpyNewbie.I18N.Editor
 {
     /// <summary>
-    /// Google スプレッドシート(または CSV ファイル)から JSON を生成し、
-    /// シーン内の I18NManager.localeJson に書き込む(JSON ファイル出力は任意)。
+    /// Generates JSON from a Google Spreadsheet (or a CSV file) and
+    /// writes it to I18NManager.localeJson in the scene (writing a JSON file is optional).
     ///
-    /// シートの形式:
+    /// Sheet format:
     ///   | key        | ja       | en       | #memo      |
-    ///   | @name      | 日本語   | English  |            |  ← Dropdown に表示する言語名(省略可)
-    ///   | # コメント行 |          |          |            |  ← key が # で始まる行は無視
-    ///   | menu.title | メニュー  | Menu     | タイトル用  |  ← ヘッダーが # で始まる列は無視
+    ///   | @name      | 日本語   | English  |            |  ← Language names shown in dropdowns (optional)
+    ///   | # comment  |          |          |            |  ← Rows whose key starts with # are ignored
+    ///   | menu.title | メニュー  | Menu     | for title  |  ← Columns whose header starts with # are ignored
     /// </summary>
     public class I18NSheetExporter : EditorWindow
     {
@@ -148,7 +148,7 @@ namespace DerpyNewbie.I18N.Editor
             _statusType = MessageType.Info;
         }
 
-        // ---------- 取得 ----------
+        // ---------- Fetch ----------
         private void FetchSheet()
         {
             var m = Regex.Match(_sheetUrl, @"/spreadsheets/d/([a-zA-Z0-9_-]+)");
@@ -181,7 +181,7 @@ namespace DerpyNewbie.I18N.Editor
                 }
                 else if (contentType.Contains("text/html"))
                 {
-                    // 非公開シートだとログインページの HTML が返ってくる
+                    // A private sheet returns the HTML of the sign-in page
                     SetStatus("CSV ではなく HTML が返されました。シートの共有設定を確認してください。", MessageType.Error);
                 }
                 else
@@ -197,7 +197,7 @@ namespace DerpyNewbie.I18N.Editor
             }
         }
 
-        // ---------- 変換 ----------
+        // ---------- Convert ----------
         private void Export(string csv)
         {
             var managers = FindManagers();
@@ -251,7 +251,7 @@ namespace DerpyNewbie.I18N.Editor
                 return null;
             }
 
-            // ヘッダー行から言語列を拾う(空 or # 始まりの列は無視)
+            // Collect language columns from the header row (empty columns or ones starting with # are ignored)
             var langCols = new List<int>();
             var langCodes = new List<string>();
             var header = rows[0];
@@ -336,7 +336,7 @@ namespace DerpyNewbie.I18N.Editor
                 return;
             }
             jsonProp.stringValue = json;
-            // ApplyModifiedProperties が Undo 記録・Dirty 化・Prefab オーバーライド記録まで行う
+            // ApplyModifiedProperties also handles Undo recording, dirtying and prefab override recording
             if (so.ApplyModifiedProperties())
             {
                 UdonSharpEditorUtility.CopyProxyToUdon(manager);
@@ -344,14 +344,14 @@ namespace DerpyNewbie.I18N.Editor
             }
         }
 
-        // ---------- ユーティリティ ----------
+        // ---------- Utilities ----------
 
         private static string Cell(List<string> row, int index)
         {
             return index < row.Count ? row[index] : "";
         }
 
-        /// <summary>RFC 4180 形式の CSV をパースする(セル内の改行・カンマ・"" に対応)。</summary>
+        /// <summary>Parses RFC 4180 CSV (supports newlines, commas and "" inside cells).</summary>
         private static List<List<string>> ParseCsv(string text)
         {
             text = text.TrimStart('﻿').Replace("\r\n", "\n").Replace('\r', '\n');
