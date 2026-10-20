@@ -58,7 +58,7 @@ namespace DerpyNewbie.I18N
 
             if (!_textDict.TryGetValue(key, TokenType.DataDictionary, out var entry)) return key;
             if (entry.DataDictionary.TryGetValue(language, TokenType.String, out var value)) return value.String;
-            // 訳がない場合は先頭の言語にフォールバック
+            // Fall back to the first language when there is no translation
             if (entry.DataDictionary.TryGetValue(_languages[0], TokenType.String, out value)) return value.String;
             return key;
         }
@@ -93,7 +93,7 @@ namespace DerpyNewbie.I18N
 #if UNITY_EDITOR && !COMPILER_UDONSHARP
         private void OnValidate()
         {
-            // localeJson が書き換えられたら次回アクセス時に読み直す
+            // Reload on next access when localeJson has been changed
             _textDict = null;
             Reload();
         }
